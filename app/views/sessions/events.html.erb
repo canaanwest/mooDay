@@ -1,15 +1,16 @@
-<h1>Today's Events</h1><br /><br />
-
-<% @eventsToday.each do |event| %>
-  <ul>
-    <li>
-      <%= event.title%>
-    </li>
-    <li>
-      <%= event.time_min%>
-    </li>
-    <li>
-      <%= event.summary%> <br />
-    </li>
-  </ul>
-<% end %>
+<section class="event-content">
+  <h2 class="event-title">Today's Schedule</h2>
+  <% @eventsToday.each do |event| %>
+    <ul>
+      <li>
+        <%= event.title%>
+      </li>
+      <li>
+        <%= event.time_min%>
+      </li>
+      <li>
+        <%= event.summary%> <br />
+      </li>
+    </ul>
+  <% end %>
+</section>

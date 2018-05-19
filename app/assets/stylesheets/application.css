@@ -96,8 +96,9 @@ footer.page-footer p.footer-credits, footer.page-footer p.footer-credits a {
 footer.page-footer p.footer-signature i.fa-heart { color: var(--pink); }
 
 /* root-content */
-section.root-content {
-  padding: 10% 4% 3%;
+section.root-content,
+section.event-content {
+  padding: 40px 10px 30px;
 }
 .event-form {
   text-align: center;
@@ -123,4 +124,9 @@ p.btn-label {
   margin-top: 5px;
   font-size: 0.8em;
   color: #555;
+}
+h2.event-title {
+  font-size: 1.6em;
+  font-family: 'PT-Sans', sans-serif;
+  font-weight: 700;
 }
