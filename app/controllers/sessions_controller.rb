@@ -2,9 +2,7 @@ require_dependency '../../lib/google_api_wrapper'
 require 'date'
 class SessionsController < ApplicationController
   attr_reader :event_list, :added
-  def init
-    @added = false
-  end
+  @@color = ""
 
   def root
     @calendars_item = calendars
@@ -71,7 +69,7 @@ class SessionsController < ApplicationController
     end
       #gets the collection of events for today.
     @eventsToday = eventsToday
-    getClosestEvent
+    decideColor
       # redirect_to root_path
   end
 
@@ -94,6 +92,34 @@ class SessionsController < ApplicationController
     return @eventsToday
   end
 
+  def decideColor
+    moods = {
+      "green" => ["1:1", "one-on-one", "reflection", "consensus", "build"],
+      "blue" => ["heads", "down", "focus", "edit", "proof", "review", "independent"],
+      "red" => ["debate", "defen", "presentation", "persua"],
+      "yellow" => ["inspire", "brainstorm", "teach", "mentor", "social", "team"]
+    }
+    event = getClosestEvent
+    containsWords = []
+    containsWords.push(event.title)
+    if event.summary != nil
+      containsWords.push(event.summary)
+    end
+
+    moods.each do |kee, list|
+      list.each do |taskword|
+        if containsWords.include?(taskword)
+          puts "taskword: #{taskword}"
+          @@color = kee
+          puts "#{@@color}"
+          return @@color
+        end
+      end
+    end
+    puts "GREEN!!!!!"
+    return @@color = "green"
+  end
+
   def getClosestEvent()
     todaysEvents = eventsToday
     curTime = Time.now().to_s.split(" ")[1]
@@ -101,21 +127,16 @@ class SessionsController < ApplicationController
     i = 0
     while i < todaysEvents.length-1
       cur_event_time = todaysEvents[i].time_min.split("T")[1]
-
       next_event_time = todaysEvents[i+1].time_min.split("T")[1]
-
-      puts "CURRENT TIME: #{cur_event_time}"
       # cur_events_length = next_date_time - this_date_time
 
       if next_event_time > curTime && curTime > cur_event_time
-        puts "A CONDITIONAL WAS MET"
-          puts "NEXT EVENT IS #{todaysEvents[i].title}"
-          return todaysEvents[i]
+        return todaysEvents[i]
       end
       i+=1
     end
     puts "CLOSEST IS THE LAST"
-    return todaysEvents.last.title
+    return todaysEvents.last
   end
 
   private
