@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  has_many :events
 
   def self.from_auth_hash(provider, auth_hash)
     user = new

@@ -1,8 +1,18 @@
 require_dependency '../../lib/google_api_wrapper'
 require 'date'
 class SessionsController < ApplicationController
+  attr_reader :event_list
+  # def initialize
+  #   @event_list = []
+  # end
+
   def root
-    @calendars_hash = calendars
+    @calendars_item = calendars
+    @event_list = events
+
+
+
+
     # @events = events
     # @calendar_id = params[:calendar_id]
     #
@@ -47,35 +57,50 @@ class SessionsController < ApplicationController
 
     calendar_list = service.list_calendar_lists
 
-    calendars_hash = {}
-    calendar_list.items.each do |calendar|
-      calendars_hash[calendar.summary] = calendar.id
-    end
-    return calendars_hash
+    # calendars_hash = {}
+    # calendar_list.items.each do |calendar|
+    #   calendars_hash[calendar.summary] = calendar.id
+    # end
+    return calendar_list.items.first
   end
 
   def events()
-    puts "calendarID: ~~~~~~~#{@calendar_id}~~~~~~~~"
+    # puts "calendarID: ~~~~~~~#{@calendar_id}~~~~~~~~"
     client = Signet::OAuth2::Client.new(client_options)
     client.update!(session[:authorization])
 
     service = Google::Apis::CalendarV3::CalendarService.new
     service.authorization = client
 
-    eventParams = {
-      calendarId: params[:calendar_id],
-      timeMin: Date.
-      timeMax: Date.
+      event_list = service.list_events(@calendars_item.id)
 
-    }
-    # if !calendar_id.nil?
-      @event_list = service.list_events(eventParams)
+      @event_list = event_list
+      puts "EVENT LIST: #{@event_list}"
+      if @event_list.items && @event_list.items.length > 0
+        puts "WE DID IT DORA!!!!!!!!~~~~~~~~~~~``"
+        @event_list.items.each do |event|
+          puts "EVENT LOOKS LIKE: #{event.start}"
+          addEventToDB(event)
+        end
+      end
     # else
     #   @event_list = calendars
     # end
 
-    redirect_to root_path
-    return @event_list
+
+    # redirect_to root_path
+  end
+
+  def addEventToDB(event)
+    newEvent = {
+      title: event.summary,
+      timeMin: event.start.date_time,
+      timeMax: event.end.date_time,
+      summary: event.description,
+      location: event.location,
+    }
+
+    Event.create!(newEvent)
   end
 
   private
