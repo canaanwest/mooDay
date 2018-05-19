@@ -41,7 +41,7 @@ class SessionsController < ApplicationController
     service = Google::Apis::CalendarV3::CalendarService.new
     service.authorization = client
 
-    calendar_list = service.list_calendar_lists
+    calendar_list = service.list_events('primary')
     return calendar_list.items.first
   end
 
@@ -52,7 +52,7 @@ class SessionsController < ApplicationController
     service = Google::Apis::CalendarV3::CalendarService.new
     service.authorization = client
       @calendars_item = calendars
-      event_list = service.list_events(@calendars_item.id)
+      event_list = service.list_events('primary')
       return event_list
   end
 

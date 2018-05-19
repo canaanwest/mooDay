@@ -1,9 +1,15 @@
-<h1>Today's Events</h1>
+<h1>Today's Events</h1><br /><br />
 
 <% @eventsToday.each do |event| %>
-  <li>
-    <%= event.title%>
-    <%= event.time_min%>
-    <%= event.summary%>
-  </li>
+  <ul>
+    <li>
+      <%= event.title%>
+    </li>
+    <li>
+      <%= event.time_min%>
+    </li>
+    <li>
+      <%= event.summary%> <br />
+    </li>
+  </ul>
 <% end %>
