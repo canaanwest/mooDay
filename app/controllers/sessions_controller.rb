@@ -2,26 +2,8 @@ require_dependency '../../lib/google_api_wrapper'
 require 'date'
 class SessionsController < ApplicationController
   attr_reader :event_list
-  # def initialize
-  #   @event_list = []
-  # end
-
   def root
     @calendars_item = calendars
-    @event_list = events
-
-
-
-
-    # @events = events
-    # @calendar_id = params[:calendar_id]
-    #
-    # puts "calendarID: ~~~~~~~#{@calendar_id}~~~~~~~~"
-    #
-    # if @calendar_id
-    #   @event_list = events(@calendar_id)
-    #   puts "eventLIst: #{@event_list}"
-    # end
   end
 
   def logout
@@ -65,30 +47,22 @@ class SessionsController < ApplicationController
   end
 
   def events()
-    # puts "calendarID: ~~~~~~~#{@calendar_id}~~~~~~~~"
     client = Signet::OAuth2::Client.new(client_options)
     client.update!(session[:authorization])
 
     service = Google::Apis::CalendarV3::CalendarService.new
     service.authorization = client
-
+      @calendars_item = calendars
       event_list = service.list_events(@calendars_item.id)
 
       @event_list = event_list
-      puts "EVENT LIST: #{@event_list}"
       if @event_list.items && @event_list.items.length > 0
-        puts "WE DID IT DORA!!!!!!!!~~~~~~~~~~~``"
         @event_list.items.each do |event|
           puts "EVENT LOOKS LIKE: #{event.start}"
           addEventToDB(event)
         end
       end
-    # else
-    #   @event_list = calendars
-    # end
-
-
-    # redirect_to root_path
+      redirect_to root_path
   end
 
   def addEventToDB(event)
@@ -103,6 +77,11 @@ class SessionsController < ApplicationController
     Event.create!(newEvent)
   end
 
+  # def getEventByDate
+  #   today = DateTime.today.
+  #   todayEvents = Events.where()
+  #
+  # end
   private
   def client_options
     {
@@ -114,5 +93,7 @@ class SessionsController < ApplicationController
       redirect_uri: callback_url
     }
   end
+
+
 
 end
