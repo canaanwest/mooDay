@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  mood: MyString
+  type: 
+  source: MyString
+  title: MyString
+  creator: MyString
+
+two:
+  mood: MyString
+  type: 
+  source: MyString
+  title: MyString
+  creator: MyString

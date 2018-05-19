@@ -2,24 +2,30 @@ class SessionsController < ApplicationController
   def login_form
   end
 
+  def home
+  end 
+
   def login
-    username = params[:username]
-    unless username && username.length > 0
-      render render_404
-    end
-    if username and user = User.find_by(user: username)
+    auth_hash = request.env['omniauth.auth']
+    puts auth_hash
+    email = params[:email]
+    puts "!!!!!!!username!!!!!"
+    # unless username && username.length > 0
+    #   render render_404
+    # end
+    if email and user = User.find_by(email: email)
       session[:user_id] = user.id
       flash[:status] = :success
       flash[:result_text] = "Successfully logged in as existing user #{user.username}"
     else
       puts "I'm making a new user!"
-      user = User.new(username: username)
+      user = User.new(email: email)
       user.save
       if user.save
         puts "I SAVED!"
         session[:user_id] = user.id
         flash[:status] = :success
-        flash[:result_text] = "Successfully created new user #{user.username} with ID #{user.id}"
+        flash[:result_text] = "Successfully created new user #{user.email} with ID #{user.id}"
       else
         flash.now[:status] = :failure
         flash.now[:result_text] = "Could not log in"
