@@ -2,7 +2,7 @@ require_dependency '../../lib/google_api_wrapper'
 require 'date'
 class SessionsController < ApplicationController
   attr_reader :event_list, :added
-  @@color = ""
+  @color= ""
 
   def root
     @calendars_item = calendars
@@ -69,7 +69,8 @@ class SessionsController < ApplicationController
     end
       #gets the collection of events for today.
     @eventsToday = eventsToday
-    decideColor
+    @color = decideColor
+    @nextEvent = getClosestEvent
       # redirect_to root_path
   end
 
@@ -97,7 +98,7 @@ class SessionsController < ApplicationController
       "green" => ["1:1", "one-on-one", "reflection", "consensus", "build"],
       "blue" => ["heads", "down", "focus", "edit", "proof", "review", "independent"],
       "red" => ["debate", "defen", "presentation", "persua"],
-      "yellow" => ["inspire", "brainstorm", "teach", "mentor", "social", "team"]
+      "yellow" => ["inspire", "brainstorm", "teach", "mentor", "social", "Team Presentations"]
     }
     event = getClosestEvent
     containsWords = []
@@ -110,14 +111,14 @@ class SessionsController < ApplicationController
       list.each do |taskword|
         if containsWords.include?(taskword)
           puts "taskword: #{taskword}"
-          @@color = kee
-          puts "#{@@color}"
-          return @@color
+          @color= kee
+          puts "#{@color}"
+          return @color
         end
       end
     end
     puts "GREEN!!!!!"
-    return @@color = "green"
+    return @color= "green"
   end
 
   def getClosestEvent()

@@ -1,9 +1,13 @@
 <section class="event-content">
-  <h2 class="event-title">Today's Schedule</h2>
-  <% @eventsToday.each do |event| %>
-    <ul>
+  <h2 class="event-title"><i class="fa fa-calendar"></i> Today's Schedule</h2>
+  <div class="event-content-wrapper">
+
+    <ul class="event-list">
+      <% @eventsToday.each do |event| %>
       <li>
-        <%= event.title%>
+        <strong>
+          <%= event.title%>
+        </strong>
       </li>
       <li>
         <%= event.time_min%>
@@ -11,6 +15,17 @@
       <li>
         <%= event.summary%> <br />
       </li>
+      <% end %>
     </ul>
-  <% end %>
+
+
+    <div class="image-wrapper">
+      <h3 class="event-notification"><i class="fa fa-bell"></i> Your Next Event is: <%=@nextEvent.title%> </h3>
+      <% if @color != ''%>
+        <% if @color == 'yellow'%>
+          <%= image_tag("yellow01-1000x820.jpg") %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
 </section>

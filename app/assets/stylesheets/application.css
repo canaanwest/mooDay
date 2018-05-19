@@ -130,3 +130,23 @@ h2.event-title {
   font-family: 'PT-Sans', sans-serif;
   font-weight: 700;
 }
+div.event-content-wrapper {
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+}
+ul.event-list {
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+}
+div.image-wrapper img {
+  max-height: 500px;
+  max-width: 500px;
+}
+h3.event-notification {
+  margin-bottom: 20px;
+}
+ul.event-list li strong {
+  font-weight: bold;
+}
