@@ -10,6 +10,7 @@ end
 gem "omniauth"
 gem "omniauth-github"
 gem 'omniauth-google-oauth2'
+gem 'google-api-client', require: 'google/apis/calendar_v3'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.2'
 # Use postgresql as the database for Active Record
@@ -42,6 +43,7 @@ gem 'jbuilder', '~> 2.5'
 # Use the Foundation CSS framework
 gem 'foundation-rails'
 gem 'awesome_print'
+gem 'httparty'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
