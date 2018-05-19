@@ -1,34 +1,9 @@
+<section class="root-content">
 
-<%#= collection_select('summary', 'id', @calendar_id, @calendars, :first, :last) %>
+  <form action="<%= events_path %>" class="event-form">
 
-<%#= collection_select(:summary, :id, @calendars_hash, :name, :id) %>
+    <%= submit_tag "ADD EVENTS FOR TODAY", class: 'event-btn' %>
 
-
-<%# select_from_calendars = @calendars_hash.map{|summary, id| [summary, id]} %>
-
-<!-- <form action="<%#= events_path %>" method="get"> -->
-  <%#= select_tag(:calendar_id, options_for_select(select_from_calendars)) %>
-    <%#= submit_tag :submit, name: nil, class: 'button' do %>
-      <!-- Search -->
-    <%# end %>
-<!-- </form> -->
-
-
-
-
-<ul>
-  <%# @calendars_hash.each do |name, id| %>
-    <li><%#= name %> (<%#= id %>)</li>
-  <%# end %>
-</ul>
-
-
-<p>
-  ~~~~~~~~~~
-</p>
-
-
-
-<form action="<%= events_path %>" >
-  <%= button_tag :submit%>
-</form>
+    <p class="btn-label"> a MoOooOoOOOooo day has come</p>
+  </form>
+</section>
