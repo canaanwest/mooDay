@@ -13,3 +13,89 @@
  *= require_tree .
  *= require_self
  */
+
+ /* import URLS */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css');
+@import url('https://use.fontawesome.com/releases/v5.0.13/css/all.csss');
+@import url('https://fonts.googleapis.com/css?family=Andika|PT+Sans:700');
+
+/* colors */
+:root {
+  --black: #333;
+  --white: #fefefe;
+  --red1: #d30620;
+  --red2: #c01b22;
+  --red3: #a30009;
+  --yellow1: #fbdc00;
+  --yellow2: #fedb00;
+  --yellow3: #fceb70;
+  --green1: #55b14c;
+  --green2: #6aa917;
+  --green3: #2bb732;
+  --blue1: #1b80b7;
+  --blue2: #4aa4b3;
+  --blue3: #2a30af;
+  --pink: #faa5c0;
+}
+
+/* universal styles */
+html {
+  box-sizing: border-box;
+  background-color: #fafafa;
+}
+*, *:before, *:after { box-sizing: inherit; }
+html, body {
+  margin: 0;
+  height: 100%;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  /* padding: 2% 2% 4%; */
+  width: 100%;
+  color: var(--black);
+  font-family: 'Andika', sans-serif;
+  font-size: 16px;
+}
+section.content {
+  flex: 1 0 auto;
+  padding: 2%;
+}
+a {
+ color: var(--black);
+ text-decoration: none;
+}
+a:hover { cursor: pointer; }
+
+/* header */
+h1.page-title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+h1.page-title a {
+  font-size: 2em;
+  font-family: 'PT-Sans', sans-serif;
+  font-weight: 700;
+}
+h1.page-title small {
+  font-size: 1.2em;
+  margin-left: 2%;
+}
+
+/* footer */
+footer.page-footer {
+  flex-shrink: 0;
+  text-align: center;
+  background: #555;
+  padding: 2% 2% 4%;
+}
+footer.page-footer p {
+  color: var(--white);
+  line-height: 1.6;
+}
+footer.page-footer p a { color: var(--white);  }
+footer.page-footer p.footer-credits, footer.page-footer p.footer-credits a {
+  font-size: 8px;
+}
+footer.page-footer p.footer-signature i.fa-heart { color: var(--pink); }

@@ -38,11 +38,6 @@ class SessionsController < ApplicationController
     service.authorization = client
 
     calendar_list = service.list_calendar_lists
-
-    # calendars_hash = {}
-    # calendar_list.items.each do |calendar|
-    #   calendars_hash[calendar.summary] = calendar.id
-    # end
     return calendar_list.items.first
   end
 
@@ -62,26 +57,31 @@ class SessionsController < ApplicationController
           addEventToDB(event)
         end
       end
-      redirect_to root_path
+      #gets the collection of events for today.
+      @eventsToday = eventsToday
+      # redirect_to root_path
   end
 
   def addEventToDB(event)
     newEvent = {
       title: event.summary,
-      timeMin: event.start.date_time,
-      timeMax: event.end.date_time,
+      time_min: event.start.date_time,
+      time_max: event.end.date_time,
       summary: event.description,
       location: event.location,
     }
 
     Event.create!(newEvent)
+    puts "NEW EVENT: #{newEvent}"
   end
 
-  # def getEventByDate
-  #   today = DateTime.today.
-  #   todayEvents = Events.where()
-  #
-  # end
+  def eventsToday
+    today = DateTime.now
+    puts "TIME TODAY: #{today}"
+    @eventsToday = Event.where('time_min > ?', today)
+    return @eventsToday
+  end
+
   private
   def client_options
     {

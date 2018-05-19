@@ -4,11 +4,40 @@
     <title>MooDay</title>
     <%= csrf_meta_tags %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <%= favicon_link_tag 'favicon.ico' %>
+
   </head>
 
   <body>
-    <%= yield %>
+    <section class="content">
+      <header class="page-header">
+        <h1 class="page-title">
+          <%= link_to root_path do %>
+            <%= image_tag 'cow_color.png', height: 32, alt: 'MooDay logo'%>
+            MooDay
+          <% end %>
+
+          <small>What mOOd are you in?</small>
+        </h1>
+      </header>
+
+      <main class="page-main">
+        <%= yield %>
+      </main>
+
+    </section>
+
+
+    <footer class="page-footer">
+      <p class="footer-signature">Made with <i class="fa fa-heart"></i> by KeeNaan</p>
+      <p class="footer-credits">Cow icon made by
+        <a href="http://www.freepik.com" title="Freepik">Freepik</a> from
+        <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by
+        <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0</a>
+      </p>
+    </footer>
   </body>
 </html>
