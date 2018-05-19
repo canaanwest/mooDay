@@ -1,3 +1,35 @@
+
+<%#= collection_select('summary', 'id', @calendar_id, @calendars, :first, :last) %>
+
+<%#= collection_select(:summary, :id, @calendars_hash, :name, :id) %>
+
+
+<% select_from_calendars = @calendars_hash.map{|summary, id| [summary, id]} %>
+
+<form action="<%= events_path %>" method="get">
+  <%= select_tag(:calendar_id, options_for_select(select_from_calendars)) %>
+    <%= submit_tag :submit, name: nil, class: 'button' do %>
+      Search
+    <% end %>
+</form>
+
+
+
+
+<ul>
+  <% @calendars_hash.each do |name, id| %>
+    <li><%= name %> (<%= id %>)</li>
+  <% end %>
+</ul>
+
 <p>
-  SOMETHIGN HAPPENEDS
+  ~~~~~~~~~~
 </p>
+
+<% if @event_list %>
+<ul>
+  <% @event_list.each do |event| %>
+    <li><%= event.summary %> (<%= event.id %>)</li>
+  <% end %>
+</ul>
+<% end %>
