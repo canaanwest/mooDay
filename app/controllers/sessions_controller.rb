@@ -1,7 +1,11 @@
 require_dependency '../../lib/google_api_wrapper'
 require 'date'
 class SessionsController < ApplicationController
-  attr_reader :event_list
+  attr_reader :event_list, :added
+  def init
+    @added = false
+  end
+
   def root
     @calendars_item = calendars
   end
@@ -41,7 +45,7 @@ class SessionsController < ApplicationController
     return calendar_list.items.first
   end
 
-  def events()
+  def fetchEvents()
     client = Signet::OAuth2::Client.new(client_options)
     client.update!(session[:authorization])
 
@@ -49,30 +53,37 @@ class SessionsController < ApplicationController
     service.authorization = client
       @calendars_item = calendars
       event_list = service.list_events(@calendars_item.id)
+      return event_list
+  end
 
-      @event_list = event_list
-      if @event_list.items && @event_list.items.length > 0
-        @event_list.items.each do |event|
-          puts "EVENT LOOKS LIKE: #{event.start}"
-          addEventToDB(event)
+  def events()
+    if Event.first == nil
+      @event_list = fetchEvents()
+      if !@added
+        if @event_list.items && @event_list.items.length > 0
+          @event_list.items.each do |event|
+            puts "EVENT LOOKS LIKE: #{event.start}"
+            addEventToDB(event)
+          end
         end
+        @added = true
       end
+    end
       #gets the collection of events for today.
-      @eventsToday = eventsToday
+    @eventsToday = eventsToday
       # redirect_to root_path
   end
 
   def addEventToDB(event)
-    newEvent = {
-      title: event.summary,
-      time_min: event.start.date_time,
-      time_max: event.end.date_time,
-      summary: event.description,
-      location: event.location,
-    }
-
-    Event.create!(newEvent)
-    puts "NEW EVENT: #{newEvent}"
+      newEvent = {
+        title: event.summary,
+        time_min: event.start.date_time,
+        time_max: event.end.date_time,
+        summary: event.description,
+        location: event.location,
+      }
+      Event.create!(newEvent)
+      puts "NEW EVENT: #{newEvent}"
   end
 
   def eventsToday
