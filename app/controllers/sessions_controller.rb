@@ -71,6 +71,7 @@ class SessionsController < ApplicationController
     end
       #gets the collection of events for today.
     @eventsToday = eventsToday
+    getClosestEvent
       # redirect_to root_path
   end
 
@@ -91,6 +92,30 @@ class SessionsController < ApplicationController
     puts "TIME TODAY: #{today}"
     @eventsToday = Event.where('time_min > ?', today)
     return @eventsToday
+  end
+
+  def getClosestEvent()
+    todaysEvents = eventsToday
+    curTime = Time.now().to_s.split(" ")[1]
+    puts "LENGTH: #{todaysEvents.length}"
+    i = 0
+    while i < todaysEvents.length-1
+      cur_event_time = todaysEvents[i].time_min.split("T")[1]
+
+      next_event_time = todaysEvents[i+1].time_min.split("T")[1]
+
+      puts "CURRENT TIME: #{cur_event_time}"
+      # cur_events_length = next_date_time - this_date_time
+
+      if next_event_time > curTime && curTime > cur_event_time
+        puts "A CONDITIONAL WAS MET"
+          puts "NEXT EVENT IS #{todaysEvents[i].title}"
+          return todaysEvents[i]
+      end
+      i+=1
+    end
+    puts "CLOSEST IS THE LAST"
+    return todaysEvents.last.title
   end
 
   private
