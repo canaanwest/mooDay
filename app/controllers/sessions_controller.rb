@@ -69,7 +69,9 @@ class SessionsController < ApplicationController
     end
       #gets the collection of events for today.
     @eventsToday = eventsToday
-    @color = decideColor
+    if @eventsToday
+      @color = decideColor
+    end
     @nextEvent = getClosestEvent
       # redirect_to root_path
   end
@@ -102,6 +104,7 @@ class SessionsController < ApplicationController
     }
     event = getClosestEvent
     containsWords = []
+    puts "EVENT: #{event}"
     containsWords.push(event.title)
     if event.summary != nil
       containsWords.push(event.summary)
@@ -124,19 +127,18 @@ class SessionsController < ApplicationController
   def getClosestEvent()
     todaysEvents = eventsToday
     curTime = Time.now().to_s.split(" ")[1]
-    puts "LENGTH: #{todaysEvents.length}"
+
     i = 0
     while i < todaysEvents.length-1
       cur_event_time = todaysEvents[i].time_min.split("T")[1]
       next_event_time = todaysEvents[i+1].time_min.split("T")[1]
-      # cur_events_length = next_date_time - this_date_time
 
       if next_event_time > curTime && curTime > cur_event_time
         return todaysEvents[i]
       end
       i+=1
     end
-    puts "CLOSEST IS THE LAST"
+  
     return todaysEvents.last
   end
 
