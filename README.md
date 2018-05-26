@@ -14,4 +14,4 @@ Specs:
 
 In order to use this locally on your machine, you will need to obtain credentials through Google APIs. More instructions on this will follow.
 
-* **Database:** We are using ActiveRecord. You will need to run **rails db:migrate** to set up the database on your local machine. Further documentation can be found *here*[http://guides.rubyonrails.org/active_record_basics.html].
+* **Database:** We are using ActiveRecord. You will need to run **rails db:migrate** to set up the database on your local machine. Further documentation can be found at http://guides.rubyonrails.org/active_record_basics.html.
