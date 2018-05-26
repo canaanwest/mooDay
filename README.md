@@ -1,24 +1,17 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Thanks for visiting our 'Hack the Now and Next' Hackathon Project. It's a moOoOo
+day, and we're happy to see you!
 
-Things you may want to cover:
+MooDay is yet a **Work In Progress**, designed and outlined over the course of an approximately 12-hour period. We welcome feedback; however, please know that this is still in v0.0.0, as we do not consider it finished or reliable :)
 
-* Ruby version
+Specs:
+* **Ruby & Rails:** Ruby v2.4.2, Rails v5.0.7
 
-* System dependencies
+* **OAuth:** We used the follow oauth gems: "omniauth", "omniauth-github", "omniauth-google-oauth2".
 
-* Configuration
+**Google Calendars API**: we also used the Google Calendar API, which required the *gem 'google-api-client'* followed by a require statement for the calendar *require: 'google/apis/calendar_v3'*
 
-* Database creation
+In order to use this locally on your machine, you will need to obtain credentials through Google APIs. More instructions on this will follow.
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* **Database:** We are using ActiveRecord. You will need to run **rails db:migrate** to set up the database on your local machine. Further documentation can be found *here*[http://guides.rubyonrails.org/active_record_basics.html].
