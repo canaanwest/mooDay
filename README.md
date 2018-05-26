@@ -5,7 +5,7 @@ day. You might be feeling Mood-ay, but no matter what, we're happy to see you!
 
 MooDay is yet a **Work In Progress**, designed and outlined over the course of an approximately 12-hour period. We welcome feedback; however, please know that this is still in v0.0.0, as we do not consider it stable or deployment-ready :)
 
-## Project Plan and Purpose:
+## Project Plan and Purpose
 The purpose of this project was to combine mood research with technology. We wanted to help our users maximize their success at work and in life. To do this, we briefly explored correlation between mood and efficacy at certain tasks, asking ourselves how we could ease our users into moods that would help them maximize their positive outcomes.
 
 To do this, we decided to use a user's calendar to determine what kind of mood they ought to be in. Events that require collaboration demand one type of mood, while working independently, requires another, and giving a presentation is really optimized by a third, and mentoring yet a fourth. By mapping words from the descriptions given in the title and description of a calendar event to 'moods', we are able to present the user with content which reflects the mood of their upcoming event.
